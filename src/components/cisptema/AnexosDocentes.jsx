@@ -274,6 +274,30 @@ const datosInicialesAnexo = {
   proyectoSEP: "",
   laborSEP: "",
   fundamentoFinanciamiento: "",
+
+  datoAdministrativo: "",
+  valorAnterior: "",
+  valorNuevo: "",
+  bancoAnterior: "",
+  bancoNuevo: "",
+  tipoCuentaAnterior: "",
+  tipoCuentaNuevo: "",
+  numeroCuentaAnterior: "",
+  numeroCuentaNuevo: "",
+  correoAnterior: "",
+  correoNuevo: "",
+  domicilioAnterior: "",
+  domicilioNuevo: "",
+  observacionAdministrativa: "",
+
+  tipoTerminoRegularizacion: "",
+  funcionAsignacionTermina: "",
+  fechaTermino: "",
+  motivoTerminoRegularizacion: "",
+  detalleRegularizacion: "",
+  fechaIngresoReconocida: "",
+  antiguedadReconocida: "",
+  observacionTerminoRegularizacion: "",
 };
 
 function normalizarRut(rut = "") {
@@ -403,11 +427,41 @@ export default function AnexosDocentes() {
 
       financiamientoAnterior: contratoEncontrado.financiamiento || "",
       nuevoFinanciamiento: "",
-      horasGeneral: contratoEncontrado.sueldoBaseGeneral > 0 ? contratoEncontrado.horasContrato : "",
-      horasSEP: contratoEncontrado.sueldoBaseSEP > 0 ? contratoEncontrado.horasContrato : "",
+      horasGeneral:
+        contratoEncontrado.sueldoBaseGeneral > 0
+          ? contratoEncontrado.horasContrato
+          : "",
+      horasSEP:
+        contratoEncontrado.sueldoBaseSEP > 0
+          ? contratoEncontrado.horasContrato
+          : "",
       proyectoSEP: "",
       laborSEP: "",
       fundamentoFinanciamiento: "",
+
+      datoAdministrativo: "",
+      valorAnterior: "",
+      valorNuevo: "",
+      bancoAnterior: contratoEncontrado.banco || "",
+      bancoNuevo: "",
+      tipoCuentaAnterior: contratoEncontrado.tipoCuenta || "",
+      tipoCuentaNuevo: "",
+      numeroCuentaAnterior: contratoEncontrado.numeroCuenta || "",
+      numeroCuentaNuevo: "",
+      correoAnterior: contratoEncontrado.correoPersonal || "",
+      correoNuevo: "",
+      domicilioAnterior: "",
+      domicilioNuevo: "",
+      observacionAdministrativa: "",
+
+      tipoTerminoRegularizacion: "",
+      funcionAsignacionTermina: "",
+      fechaTermino: "",
+      motivoTerminoRegularizacion: "",
+      detalleRegularizacion: "",
+      fechaIngresoReconocida: "",
+      antiguedadReconocida: "",
+      observacionTerminoRegularizacion: "",
     });
   };
 
@@ -722,6 +776,24 @@ export default function AnexosDocentes() {
               />
             )}
 
+            {categoriaSeleccionada === "datos_administrativos" &&
+              tipoSeleccionado && (
+                <FormularioDatosAdministrativos
+                  tipoSeleccionado={tipoSeleccionado}
+                  datosAnexo={datosAnexo}
+                  manejarCambioDatoAnexo={manejarCambioDatoAnexo}
+                />
+              )}
+
+            {categoriaSeleccionada === "termino_regularizacion" &&
+              tipoSeleccionado && (
+                <FormularioTerminoRegularizacion
+                  tipoSeleccionado={tipoSeleccionado}
+                  datosAnexo={datosAnexo}
+                  manejarCambioDatoAnexo={manejarCambioDatoAnexo}
+                />
+              )}
+
             {tipoSeleccionado && (
               <div className="mt-6 space-y-6">
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
@@ -830,6 +902,18 @@ export default function AnexosDocentes() {
               />
             ) : categoriaSeleccionada === "financiamiento" ? (
               <TextoFinanciamiento
+                tipoSeleccionado={tipoSeleccionado}
+                datosAnexo={datosAnexo}
+                trabajadorEncontrado={trabajadorEncontrado}
+              />
+            ) : categoriaSeleccionada === "datos_administrativos" ? (
+              <TextoDatosAdministrativos
+                tipoSeleccionado={tipoSeleccionado}
+                datosAnexo={datosAnexo}
+                trabajadorEncontrado={trabajadorEncontrado}
+              />
+            ) : categoriaSeleccionada === "termino_regularizacion" ? (
+              <TextoTerminoRegularizacion
                 tipoSeleccionado={tipoSeleccionado}
                 datosAnexo={datosAnexo}
                 trabajadorEncontrado={trabajadorEncontrado}
@@ -1587,6 +1671,590 @@ function FormularioFinanciamiento({
           />
         </div>
       )}
+    </div>
+  );
+}
+
+function TextoDatosAdministrativos({
+  tipoSeleccionado,
+  datosAnexo,
+  trabajadorEncontrado,
+}) {
+  const fechaDesde = formatoFechaDesde(datosAnexo.fechaDesde);
+
+  if (tipoSeleccionado === "datos_bancarios") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia de la actualización de los datos bancarios
+          del trabajador(a), a contar de <strong>{fechaDesde}</strong>, para
+          efectos del pago de remuneraciones y demás prestaciones que
+          correspondan.
+        </p>
+
+        <div className="rounded-xl border border-slate-300 p-5 text-left">
+          <p>
+            <strong>Datos anteriores:</strong>
+          </p>
+          <p>Banco: {datosAnexo.bancoAnterior || trabajadorEncontrado.banco || "No registrado"}</p>
+          <p>
+            Tipo de cuenta:{" "}
+            {datosAnexo.tipoCuentaAnterior ||
+              trabajadorEncontrado.tipoCuenta ||
+              "No registrado"}
+          </p>
+          <p>
+            N° cuenta:{" "}
+            {datosAnexo.numeroCuentaAnterior ||
+              trabajadorEncontrado.numeroCuenta ||
+              "No registrado"}
+          </p>
+
+          <p className="mt-4">
+            <strong>Datos nuevos:</strong>
+          </p>
+          <p>Banco: {datosAnexo.bancoNuevo || "________________"}</p>
+          <p>Tipo de cuenta: {datosAnexo.tipoCuentaNuevo || "________________"}</p>
+          <p>N° cuenta: {datosAnexo.numeroCuentaNuevo || "________________"}</p>
+        </div>
+
+        <p>
+          El trabajador(a) declara que los nuevos datos informados son correctos
+          y autoriza al empleador para utilizarlos en los procesos de pago
+          correspondientes.
+        </p>
+
+        {datosAnexo.observacionAdministrativa && (
+          <p>
+            Observación:{" "}
+            <strong>{datosAnexo.observacionAdministrativa}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  if (tipoSeleccionado === "correo_notificacion") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia de la actualización del correo electrónico
+          personal del trabajador(a), a contar de <strong>{fechaDesde}</strong>,
+          para efectos de comunicación, notificación y remisión de documentación
+          laboral.
+        </p>
+
+        <div className="rounded-xl border border-slate-300 p-5 text-left">
+          <p>
+            <strong>Correo anterior:</strong>{" "}
+            {datosAnexo.correoAnterior ||
+              trabajadorEncontrado.correoPersonal ||
+              "No registrado"}
+          </p>
+          <p>
+            <strong>Correo nuevo:</strong>{" "}
+            {datosAnexo.correoNuevo || "________________"}
+          </p>
+        </div>
+
+        <p>
+          El trabajador(a) acepta y autoriza al empleador para que su
+          documentación derivada de la relación laboral sea confeccionada,
+          procesada, firmada y remitida de manera electrónica al correo
+          señalado.
+        </p>
+
+        {datosAnexo.observacionAdministrativa && (
+          <p>
+            Observación:{" "}
+            <strong>{datosAnexo.observacionAdministrativa}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  if (tipoSeleccionado === "domicilio") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia de la actualización del domicilio del
+          trabajador(a), a contar de <strong>{fechaDesde}</strong>, para todos
+          los efectos derivados de la relación laboral.
+        </p>
+
+        <div className="rounded-xl border border-slate-300 p-5 text-left">
+          <p>
+            <strong>Domicilio anterior:</strong>{" "}
+            {datosAnexo.domicilioAnterior || "No registrado"}
+          </p>
+          <p>
+            <strong>Domicilio nuevo:</strong>{" "}
+            {datosAnexo.domicilioNuevo || "________________"}
+          </p>
+        </div>
+
+        {datosAnexo.observacionAdministrativa && (
+          <p>
+            Observación:{" "}
+            <strong>{datosAnexo.observacionAdministrativa}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        Las partes dejan constancia de la rectificación o actualización de datos
+        personales del trabajador(a), a contar de <strong>{fechaDesde}</strong>,
+        conforme a los antecedentes proporcionados por este(a).
+      </p>
+
+      <div className="rounded-xl border border-slate-300 p-5 text-left">
+        <p>
+          <strong>Dato que se modifica:</strong>{" "}
+          {datosAnexo.datoAdministrativo || "________________"}
+        </p>
+        <p>
+          <strong>Valor anterior:</strong>{" "}
+          {datosAnexo.valorAnterior || "________________"}
+        </p>
+        <p>
+          <strong>Valor correcto / nuevo:</strong>{" "}
+          {datosAnexo.valorNuevo || "________________"}
+        </p>
+      </div>
+
+      <p>
+        El trabajador(a) declara que la información actualizada corresponde a la
+        realidad y que debe ser considerada por el empleador para todos los
+        efectos administrativos y laborales pertinentes.
+      </p>
+
+      {datosAnexo.observacionAdministrativa && (
+        <p>
+          Observación:{" "}
+          <strong>{datosAnexo.observacionAdministrativa}</strong>.
+        </p>
+      )}
+    </>
+  );
+}
+
+function FormularioDatosAdministrativos({
+  tipoSeleccionado,
+  datosAnexo,
+  manejarCambioDatoAnexo,
+}) {
+  const esDatosBancarios = tipoSeleccionado === "datos_bancarios";
+  const esCorreo = tipoSeleccionado === "correo_notificacion";
+  const esDomicilio = tipoSeleccionado === "domicilio";
+  const esDatosPersonales = tipoSeleccionado === "datos_personales";
+
+  return (
+    <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
+      <h4 className="text-lg font-black text-slate-950">
+        Datos personales o administrativos
+      </h4>
+
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        Completa la información que será actualizada en el anexo contractual.
+      </p>
+
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <CampoFormulario
+          label="Fecha del anexo"
+          type="date"
+          value={datosAnexo.fechaAnexo}
+          onChange={(value) => manejarCambioDatoAnexo("fechaAnexo", value)}
+        />
+
+        <CampoFormulario
+          label="Rige desde"
+          type="date"
+          value={datosAnexo.fechaDesde}
+          onChange={(value) => manejarCambioDatoAnexo("fechaDesde", value)}
+        />
+
+        {esDatosPersonales && (
+          <>
+            <CampoFormulario
+              label="Dato que se modifica"
+              value={datosAnexo.datoAdministrativo}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("datoAdministrativo", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Valor anterior"
+              value={datosAnexo.valorAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("valorAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Valor correcto / nuevo"
+              value={datosAnexo.valorNuevo}
+              onChange={(value) => manejarCambioDatoAnexo("valorNuevo", value)}
+            />
+          </>
+        )}
+
+        {esDatosBancarios && (
+          <>
+            <CampoFormulario
+              label="Banco anterior"
+              value={datosAnexo.bancoAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("bancoAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Banco nuevo"
+              value={datosAnexo.bancoNuevo}
+              onChange={(value) => manejarCambioDatoAnexo("bancoNuevo", value)}
+            />
+
+            <CampoFormulario
+              label="Tipo de cuenta anterior"
+              value={datosAnexo.tipoCuentaAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("tipoCuentaAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Tipo de cuenta nueva"
+              value={datosAnexo.tipoCuentaNuevo}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("tipoCuentaNuevo", value)
+              }
+            />
+
+            <CampoFormulario
+              label="N° cuenta anterior"
+              value={datosAnexo.numeroCuentaAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("numeroCuentaAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="N° cuenta nueva"
+              value={datosAnexo.numeroCuentaNuevo}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("numeroCuentaNuevo", value)
+              }
+            />
+          </>
+        )}
+
+        {esCorreo && (
+          <>
+            <CampoFormulario
+              label="Correo anterior"
+              value={datosAnexo.correoAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("correoAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Correo nuevo"
+              value={datosAnexo.correoNuevo}
+              onChange={(value) => manejarCambioDatoAnexo("correoNuevo", value)}
+            />
+          </>
+        )}
+
+        {esDomicilio && (
+          <>
+            <CampoFormulario
+              label="Domicilio anterior"
+              value={datosAnexo.domicilioAnterior}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("domicilioAnterior", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Domicilio nuevo"
+              value={datosAnexo.domicilioNuevo}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("domicilioNuevo", value)
+              }
+            />
+          </>
+        )}
+      </div>
+
+      <div className="mt-5">
+        <CampoTextarea
+          label="Observación / fundamento"
+          value={datosAnexo.observacionAdministrativa}
+          onChange={(value) =>
+            manejarCambioDatoAnexo("observacionAdministrativa", value)
+          }
+        />
+      </div>
+    </div>
+  );
+}
+
+function TextoTerminoRegularizacion({
+  tipoSeleccionado,
+  datosAnexo,
+  trabajadorEncontrado,
+}) {
+  const fechaDesde = formatoFechaDesde(datosAnexo.fechaDesde);
+  const fechaTermino = formatoFechaDesde(datosAnexo.fechaTermino);
+  const funcionBase =
+    datosAnexo.funcionAsignacionTermina ||
+    datosAnexo.funcionAnterior ||
+    trabajadorEncontrado.cargoFuncion ||
+    "la función o asignación indicada por las partes";
+
+  if (tipoSeleccionado === "termino_funcion") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia del término de la función específica de{" "}
+          <strong>{funcionBase}</strong>, a contar de{" "}
+          <strong>{fechaTermino}</strong>.
+        </p>
+
+        <p>
+          Esta modificación no implica por sí sola el término de la relación
+          laboral, sino únicamente el término de la función específica señalada,
+          manteniéndose vigentes las demás condiciones del contrato principal
+          que no sean modificadas por este instrumento.
+        </p>
+
+        {datosAnexo.motivoTerminoRegularizacion && (
+          <p>
+            El término se funda en lo siguiente:{" "}
+            <strong>{datosAnexo.motivoTerminoRegularizacion}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  if (tipoSeleccionado === "termino_asignacion_sep") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia del término de la asignación, función o
+          labor asociada a financiamiento SEP denominada{" "}
+          <strong>{funcionBase}</strong>, a contar de{" "}
+          <strong>{fechaTermino}</strong>.
+        </p>
+
+        <p>
+          En consecuencia, desde dicha fecha el trabajador(a) dejará de
+          desempeñar las labores SEP individualizadas en este anexo, sin
+          perjuicio de mantenerse vigentes las demás obligaciones contractuales
+          que correspondan.
+        </p>
+
+        {datosAnexo.motivoTerminoRegularizacion && (
+          <p>
+            El término se funda en lo siguiente:{" "}
+            <strong>{datosAnexo.motivoTerminoRegularizacion}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  if (tipoSeleccionado === "regularizacion_contractual") {
+    return (
+      <>
+        <p>
+          Las partes acuerdan regularizar antecedentes contractuales del
+          trabajador(a), a contar de <strong>{fechaDesde}</strong>, con el objeto
+          de dejar concordancia entre la realidad de la prestación de servicios,
+          los registros administrativos y el contrato de trabajo vigente.
+        </p>
+
+        <div className="rounded-xl border border-slate-300 p-5 text-left">
+          <p>
+            <strong>Detalle de regularización:</strong>
+          </p>
+          <p className="whitespace-pre-line">
+            {datosAnexo.detalleRegularizacion || "________________"}
+          </p>
+        </div>
+
+        {datosAnexo.motivoTerminoRegularizacion && (
+          <p>
+            La regularización se funda en lo siguiente:{" "}
+            <strong>{datosAnexo.motivoTerminoRegularizacion}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  if (tipoSeleccionado === "reconocimiento_antiguedad") {
+    return (
+      <>
+        <p>
+          Las partes dejan constancia del reconocimiento de antigüedad laboral
+          del trabajador(a), para los efectos administrativos y contractuales
+          que correspondan.
+        </p>
+
+        <div className="rounded-xl border border-slate-300 p-5 text-left">
+          <p>
+            <strong>Fecha de ingreso reconocida:</strong>{" "}
+            {formatoFechaDesde(datosAnexo.fechaIngresoReconocida)}
+          </p>
+          <p>
+            <strong>Antigüedad reconocida:</strong>{" "}
+            {datosAnexo.antiguedadReconocida || "________________"}
+          </p>
+        </div>
+
+        <p>
+          Este reconocimiento se incorpora al historial contractual del
+          trabajador(a), manteniéndose vigentes las demás condiciones pactadas en
+          el contrato principal.
+        </p>
+
+        {datosAnexo.motivoTerminoRegularizacion && (
+          <p>
+            El reconocimiento se funda en lo siguiente:{" "}
+            <strong>{datosAnexo.motivoTerminoRegularizacion}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <p>
+        Las partes dejan constancia de una modificación, término o regularización
+        contractual a contar de <strong>{fechaDesde}</strong>, conforme a los
+        antecedentes ingresados en el presente anexo.
+      </p>
+    </>
+  );
+}
+
+function FormularioTerminoRegularizacion({
+  tipoSeleccionado,
+  datosAnexo,
+  manejarCambioDatoAnexo,
+}) {
+  const esTerminoFuncion = tipoSeleccionado === "termino_funcion";
+  const esTerminoSEP = tipoSeleccionado === "termino_asignacion_sep";
+  const esRegularizacion = tipoSeleccionado === "regularizacion_contractual";
+  const esAntiguedad = tipoSeleccionado === "reconocimiento_antiguedad";
+
+  return (
+    <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
+      <h4 className="text-lg font-black text-slate-950">
+        Datos de término o regularización
+      </h4>
+
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        Completa los antecedentes para dejar constancia del término de una
+        función, asignación SEP, regularización contractual o reconocimiento de
+        antigüedad.
+      </p>
+
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <CampoFormulario
+          label="Fecha del anexo"
+          type="date"
+          value={datosAnexo.fechaAnexo}
+          onChange={(value) => manejarCambioDatoAnexo("fechaAnexo", value)}
+        />
+
+        <CampoFormulario
+          label="Rige desde"
+          type="date"
+          value={datosAnexo.fechaDesde}
+          onChange={(value) => manejarCambioDatoAnexo("fechaDesde", value)}
+        />
+
+        {(esTerminoFuncion || esTerminoSEP) && (
+          <>
+            <CampoFormulario
+              label="Función / asignación que termina"
+              value={datosAnexo.funcionAsignacionTermina}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("funcionAsignacionTermina", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Fecha de término"
+              type="date"
+              value={datosAnexo.fechaTermino}
+              onChange={(value) => manejarCambioDatoAnexo("fechaTermino", value)}
+            />
+          </>
+        )}
+
+        {esAntiguedad && (
+          <>
+            <CampoFormulario
+              label="Fecha de ingreso reconocida"
+              type="date"
+              value={datosAnexo.fechaIngresoReconocida}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("fechaIngresoReconocida", value)
+              }
+            />
+
+            <CampoFormulario
+              label="Antigüedad reconocida"
+              value={datosAnexo.antiguedadReconocida}
+              onChange={(value) =>
+                manejarCambioDatoAnexo("antiguedadReconocida", value)
+              }
+            />
+          </>
+        )}
+
+        <CampoFormulario
+          label="Motivo o fundamento"
+          value={datosAnexo.motivoTerminoRegularizacion}
+          onChange={(value) =>
+            manejarCambioDatoAnexo("motivoTerminoRegularizacion", value)
+          }
+        />
+      </div>
+
+      {esRegularizacion && (
+        <div className="mt-5">
+          <CampoTextarea
+            label="Detalle de regularización contractual"
+            value={datosAnexo.detalleRegularizacion}
+            onChange={(value) =>
+              manejarCambioDatoAnexo("detalleRegularizacion", value)
+            }
+          />
+        </div>
+      )}
+
+      <div className="mt-5">
+        <CampoTextarea
+          label="Observaciones"
+          value={datosAnexo.observacionTerminoRegularizacion}
+          onChange={(value) =>
+            manejarCambioDatoAnexo("observacionTerminoRegularizacion", value)
+          }
+        />
+      </div>
     </div>
   );
 }

@@ -7,14 +7,15 @@ import {
   ChevronRight,
   Users,
   LockKeyhole,
-  Calculator,
+  LayoutDashboard,
 } from 'lucide-react';
 
 /**
  * COMPONENTE FOOTER MODULAR - ACTUALIZADO
  * Se ha corregido el horario a 08:00 - 19:00.
  * Se mantiene link a Privacidad.
- * Se agrega acceso interno al Sistema de Bienios.
+ * Se reemplaza Sistema Bienios por CISPTEMA.
+ * El acceso interno solo aparece para administrador.
  */
 
 const FacebookIcon = ({ size = 18 }) => (
@@ -49,11 +50,24 @@ const InstagramIcon = ({ size = 18 }) => (
   </svg>
 );
 
-export default function Footer({ onNavigate }) {
+export default function Footer({ onNavigate, isAdmin = false }) {
   const goTo = (view) => {
     if (typeof onNavigate === 'function') {
       onNavigate(view);
+      return;
     }
+
+    const routes = {
+      home: '/',
+      historia: '/historia',
+      admision: '/',
+      noticias: '/noticias',
+      privacidad: '/privacidad',
+      contacto: '/formulario',
+      formulario: '/formulario',
+    };
+
+    window.location.href = routes[view] || '/';
   };
 
   return (
@@ -207,31 +221,32 @@ export default function Footer({ onNavigate }) {
                 </span>
               </a>
 
-              <button
-                type="button"
-                onClick={() => goTo('sistema-bienios')}
-                className="relative overflow-hidden bg-slate-900 p-4 rounded-xl flex items-center group hover:bg-blue-950 transition-all border border-blue-900/60 text-left shadow-lg shadow-blue-950/20"
-              >
-                <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-green-500 via-white to-red-500 opacity-80"></div>
+              {isAdmin && (
+                <a
+                  href="/cisptema"
+                  className="relative overflow-hidden bg-slate-900 p-4 rounded-xl flex items-center group hover:bg-blue-950 transition-all border border-blue-900/60 text-left shadow-lg shadow-blue-950/20"
+                >
+                  <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-green-500 via-white to-red-500 opacity-80"></div>
 
-                <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors">
-                  <Calculator
-                    size={20}
-                    className="text-blue-300 group-hover:text-white"
-                  />
-                </div>
+                  <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors">
+                    <LayoutDashboard
+                      size={20}
+                      className="text-blue-300 group-hover:text-white"
+                    />
+                  </div>
 
-                <div>
-                  <span className="block text-[10px] font-black text-white uppercase tracking-widest">
-                    Sistema Bienios
-                  </span>
+                  <div>
+                    <span className="block text-[10px] font-black text-white uppercase tracking-widest">
+                      CISPTEMA
+                    </span>
 
-                  <span className="mt-1 flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-500 group-hover:text-blue-100">
-                    <LockKeyhole size={11} />
-                    Acceso interno
-                  </span>
-                </div>
-              </button>
+                    <span className="mt-1 flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-slate-500 group-hover:text-blue-100">
+                      <LockKeyhole size={11} />
+                      Acceso interno
+                    </span>
+                  </div>
+                </a>
+              )}
             </div>
           </div>
         </div>

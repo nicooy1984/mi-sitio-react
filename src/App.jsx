@@ -22,6 +22,7 @@ import CursoPage from './pages/CursoPage';
 import Profesores from './pages/Profesores';
 import SistemaBienios from './pages/SistemaBienios';
 import SistemaLaboral from './pages/SistemaLaboral';
+import Cisptema from './pages/Cisptema';
 
 import { db, appId, auth } from './firebase/config';
 import { collection, onSnapshot, doc, getDoc } from 'firebase/firestore';
@@ -45,6 +46,8 @@ const routeMap = {
   '/formulario': 'formulario',
   '/cursos': 'cursos',
   '/profesores': 'profesores',
+
+  '/cisptema': 'cisptema',
   '/sistema-bienios': 'sistema-bienios',
   '/sistema-laboral': 'sistema-laboral',
 
@@ -75,6 +78,8 @@ const viewToRouteMap = {
   formulario: '/formulario',
   cursos: '/cursos',
   profesores: '/profesores',
+
+  cisptema: '/cisptema',
   'sistema-bienios': '/sistema-bienios',
   'sistema-laboral': '/sistema-laboral',
 
@@ -103,8 +108,32 @@ const courseViewMap = {
   octavo: 'octavo',
 };
 
+/**
+ * Normaliza la ruta para evitar que React mande al Home cuando:
+ * - viene con barra final: /cisptema/
+ * - viene desde un subdirectorio: /mi-sitio-react/cisptema
+ * - viene con mayúsculas accidentales.
+ */
+const normalizePath = (pathname = window.location.pathname) => {
+  const cleanPath = pathname.replace(/\/+$/, '') || '/';
+
+  if (routeMap[cleanPath]) {
+    return cleanPath;
+  }
+
+  const segments = cleanPath.split('/').filter(Boolean);
+  const lastSegment =
+    segments.length > 0 ? `/${segments[segments.length - 1]}` : '/';
+
+  if (routeMap[lastSegment]) {
+    return lastSegment;
+  }
+
+  return cleanPath;
+};
+
 const getViewFromPath = () => {
-  const path = window.location.pathname;
+  const path = normalizePath();
   return routeMap[path] || 'home';
 };
 
@@ -171,6 +200,11 @@ export default function App() {
       behavior: 'smooth',
     });
   };
+
+  useEffect(() => {
+    const view = getViewFromPath();
+    setCurrentView(view);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -249,7 +283,7 @@ export default function App() {
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname;
+      const path = normalizePath();
       const view = routeMap[path] || 'home';
 
       setCurrentView(view);
@@ -359,6 +393,17 @@ export default function App() {
       <main className="flex-grow">
         {currentView === 'admin-login' ? (
           <AdminLoginPage />
+        ) : currentView === 'cisptema' && !authReady ? (
+          <div className="flex justify-center items-center h-[60vh]">
+            <Loader2 className="animate-spin w-8 h-8" />
+          </div>
+        ) : currentView === 'cisptema' && !isAdmin ? (
+          <AdminOnlyAccess
+            title="CISPTEMA"
+            description="CISPTEMA es el Centro Interno de Sistemas y Procesos del Colegio Italiano San Pedro. Para ingresar debes iniciar sesión con una cuenta autorizada de administrador."
+          />
+        ) : currentView === 'cisptema' && isAdmin ? (
+          <Cisptema userProfile={userProfile} onNavigate={handleNavigation} />
         ) : currentView === 'sistema-bienios' && !authReady ? (
           <div className="flex justify-center items-center h-[60vh]">
             <Loader2 className="animate-spin w-8 h-8" />

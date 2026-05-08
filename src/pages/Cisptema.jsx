@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FileText,
   Users,
@@ -11,10 +11,14 @@ import {
   ChevronRight,
   ShieldCheck,
   Clock3,
+  ArrowLeft,
 } from 'lucide-react';
+
+import AnexosDocentes from '../components/cisptema/AnexosDocentes';
 
 export default function Cisptema({ userProfile, onNavigate }) {
   const isAdmin = userProfile?.role === 'admin';
+  const [moduloInternoActivo, setModuloInternoActivo] = useState(null);
 
   if (!isAdmin) {
     return (
@@ -54,6 +58,7 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Próximamente',
       key: 'trabajadores',
       target: null,
+      internalModule: null,
     },
     {
       title: 'Contratos Docentes',
@@ -64,6 +69,7 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Disponible',
       key: 'contratos-docentes',
       target: 'sistema-laboral',
+      internalModule: null,
     },
     {
       title: 'Contratos Asistentes',
@@ -74,16 +80,18 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Próximamente',
       key: 'contratos-asistentes',
       target: null,
+      internalModule: null,
     },
     {
       title: 'Anexos Docentes',
       description:
-        'Creación de anexos de contrato para docentes, modificación de horas, funciones, fechas o condiciones.',
+        'Creación de anexos de contrato para docentes, modificación de horas, funciones, financiamiento General/SEP y condiciones contractuales.',
       icon: ClipboardSignature,
       color: 'from-violet-600 to-fuchsia-500',
-      status: 'Próximamente',
+      status: 'Disponible',
       key: 'anexos-docentes',
       target: null,
+      internalModule: 'anexos-docentes',
     },
     {
       title: 'Anexos Asistentes',
@@ -94,6 +102,7 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Próximamente',
       key: 'anexos-asistentes',
       target: null,
+      internalModule: null,
     },
     {
       title: 'Cálculo de Bienios',
@@ -104,6 +113,7 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Disponible',
       key: 'bienios',
       target: 'sistema-bienios',
+      internalModule: null,
     },
     {
       title: 'Historial Documental',
@@ -114,10 +124,17 @@ export default function Cisptema({ userProfile, onNavigate }) {
       status: 'Próximamente',
       key: 'historial',
       target: null,
+      internalModule: null,
     },
   ];
 
   const handleModuleClick = (module) => {
+    if (module.internalModule) {
+      setModuloInternoActivo(module.internalModule);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     if (!module.target) return;
 
     if (typeof onNavigate === 'function') {
@@ -132,6 +149,46 @@ export default function Cisptema({ userProfile, onNavigate }) {
 
     window.location.href = fallbackRoutes[module.target] || '/cisptema';
   };
+
+  if (moduloInternoActivo === 'anexos-docentes') {
+    return (
+      <main className="min-h-screen bg-[#f5f7fb] text-slate-950">
+        <section className="border-b border-slate-200 bg-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
+                CISPTEMA
+              </p>
+
+              <h1 className="mt-1 text-3xl font-black tracking-tight text-slate-950">
+                Anexos Docentes
+              </h1>
+
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+                Módulo interno para generar anexos asociados al contrato principal del trabajador.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                setModuloInternoActivo(null);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-sm transition hover:bg-slate-800"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Volver a CISPTEMA
+            </button>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+          <AnexosDocentes />
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-950">
@@ -219,7 +276,7 @@ export default function Cisptema({ userProfile, onNavigate }) {
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {modules.map((module) => {
             const Icon = module.icon;
-            const isAvailable = Boolean(module.target);
+            const isAvailable = Boolean(module.target || module.internalModule);
 
             return (
               <button

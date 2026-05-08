@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Loader2, X } from 'lucide-react';
+import { Loader2, X, Lock } from 'lucide-react';
 
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer';
@@ -19,6 +19,9 @@ import Ubicacion from './pages/Ubicacion';
 import Formulario from './pages/Formulario';
 import Cursos from './pages/Cursos';
 import CursoPage from './pages/CursoPage';
+import Profesores from './pages/Profesores';
+import SistemaBienios from './pages/SistemaBienios';
+import SistemaLaboral from './pages/SistemaLaboral';
 
 import { db, appId, auth } from './firebase/config';
 import { collection, onSnapshot, doc, getDoc } from 'firebase/firestore';
@@ -41,6 +44,9 @@ const routeMap = {
   '/ubicacion': 'ubicacion',
   '/formulario': 'formulario',
   '/cursos': 'cursos',
+  '/profesores': 'profesores',
+  '/sistema-bienios': 'sistema-bienios',
+  '/sistema-laboral': 'sistema-laboral',
 
   '/prekinder': 'prekinder',
   '/kinder': 'kinder',
@@ -68,6 +74,9 @@ const viewToRouteMap = {
   ubicacion: '/ubicacion',
   formulario: '/formulario',
   cursos: '/cursos',
+  profesores: '/profesores',
+  'sistema-bienios': '/sistema-bienios',
+  'sistema-laboral': '/sistema-laboral',
 
   prekinder: '/prekinder',
   kinder: '/kinder',
@@ -99,6 +108,32 @@ const getViewFromPath = () => {
   return routeMap[path] || 'home';
 };
 
+function AdminOnlyAccess({
+  title = 'Sistema interno',
+  description = 'Esta herramienta contiene información administrativa interna. Para ingresar debes iniciar sesión con una cuenta autorizada de administrador.',
+}) {
+  return (
+    <div className="min-h-[70vh] bg-slate-100 px-4 py-16">
+      <div className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] bg-white shadow-2xl ring-1 ring-slate-200">
+        <div className="bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 px-8 py-10 text-white">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold">
+            <Lock className="h-4 w-4" />
+            Acceso restringido
+          </div>
+
+          <h1 className="text-3xl font-black sm:text-4xl">{title}</h1>
+
+          <p className="mt-3 max-w-2xl text-blue-50">{description}</p>
+        </div>
+
+        <div className="p-6 md:p-8">
+          <AdminLoginPage />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [currentView, setCurrentView] = useState(getViewFromPath());
   const [selectedNews, setSelectedNews] = useState(null);
@@ -106,6 +141,7 @@ export default function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [authReady, setAuthReady] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
 
@@ -142,9 +178,12 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!isMounted) return;
 
+      setAuthReady(false);
+
       if (!user) {
         setIsAdmin(false);
         setUserProfile(null);
+        setAuthReady(true);
         return;
       }
 
@@ -159,6 +198,7 @@ export default function App() {
           active: true,
           isPrimaryAdmin: true,
         });
+        setAuthReady(true);
         return;
       }
 
@@ -171,6 +211,7 @@ export default function App() {
         if (!userSnap.exists()) {
           setIsAdmin(false);
           setUserProfile(null);
+          setAuthReady(true);
           return;
         }
 
@@ -186,13 +227,17 @@ export default function App() {
         };
 
         setUserProfile(normalizedUser);
+
         setIsAdmin(
           normalizedUser.active === true && normalizedUser.role === 'admin'
         );
+
+        setAuthReady(true);
       } catch (error) {
         console.error('Error leyendo permisos de usuario:', error);
         setIsAdmin(false);
         setUserProfile(null);
+        setAuthReady(true);
       }
     });
 
@@ -314,6 +359,28 @@ export default function App() {
       <main className="flex-grow">
         {currentView === 'admin-login' ? (
           <AdminLoginPage />
+        ) : currentView === 'sistema-bienios' && !authReady ? (
+          <div className="flex justify-center items-center h-[60vh]">
+            <Loader2 className="animate-spin w-8 h-8" />
+          </div>
+        ) : currentView === 'sistema-bienios' && !isAdmin ? (
+          <AdminOnlyAccess
+            title="Sistema de Bienios"
+            description="Esta herramienta contiene información administrativa interna. Para ingresar debes iniciar sesión con una cuenta autorizada de administrador."
+          />
+        ) : currentView === 'sistema-bienios' && isAdmin ? (
+          <SistemaBienios userProfile={userProfile} />
+        ) : currentView === 'sistema-laboral' && !authReady ? (
+          <div className="flex justify-center items-center h-[60vh]">
+            <Loader2 className="animate-spin w-8 h-8" />
+          </div>
+        ) : currentView === 'sistema-laboral' && !isAdmin ? (
+          <AdminOnlyAccess
+            title="Sistema Laboral Interno"
+            description="Esta herramienta permite generar contratos, anexos y documentación laboral del establecimiento. Solo puede ser utilizada por el administrador autorizado."
+          />
+        ) : currentView === 'sistema-laboral' && isAdmin ? (
+          <SistemaLaboral userProfile={userProfile} />
         ) : loading ? (
           <div className="flex justify-center items-center h-[60vh]">
             <Loader2 className="animate-spin w-8 h-8" />
@@ -352,6 +419,8 @@ export default function App() {
           <Formulario />
         ) : currentView === 'cursos' ? (
           <Cursos onNavigate={handleNavigation} />
+        ) : currentView === 'profesores' ? (
+          <Profesores userProfile={userProfile} />
         ) : courseId ? (
           <CursoPage courseId={courseId} userProfile={userProfile} />
         ) : (
@@ -369,7 +438,11 @@ export default function App() {
         <AdminPanel news={news} events={events} />
       )}
 
-      <Footer onNavigate={handleNavigation} />
+      <Footer
+        onNavigate={handleNavigation}
+        userProfile={userProfile}
+        isAdmin={isAdmin}
+      />
     </div>
   );
 }

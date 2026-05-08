@@ -1,12 +1,11 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 /**
  * CONFIGURACIÓN CENTRAL DE FIREBASE
  * Este archivo centraliza la conexión con Google Firebase.
- * Al exportar 'auth' y 'db', permitimos que el resto de componentes
- * accedan a la base de datos de forma segura y organizada.
  */
 
 const firebaseConfig = {
@@ -19,18 +18,15 @@ const firebaseConfig = {
   appId: "1:864035382925:web:d3f1813e63bf9cd58de4c4"
 };
 
-// Inicializamos la App de Firebase (verificando que no esté inicializada previamente)
+// Inicialización segura (evita duplicación)
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// Exportamos los servicios para que otros archivos los usen
+// Servicios Firebase
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
-/**
- * ID del proyecto. 
- * Se utiliza para organizar las colecciones en Firestore siguiendo la estructura de rutas:
- * /artifacts/{appId}/public/data/{collectionName}
- */
+// ID del proyecto
 export const appId = "colegio-italiano-san-pedro";
 
 export default app;

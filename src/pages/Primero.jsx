@@ -32,6 +32,7 @@ import {
   onSnapshot,
   serverTimestamp,
   updateDoc,
+  setDoc,
 } from 'firebase/firestore';
 
 const DEFAULT_COURSE_ID = 'primero';
@@ -194,9 +195,13 @@ function StaffCard({
     <div className="rounded-[1.6rem] border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
         <div className="shrink-0">
-          <div className="h-24 w-24 overflow-hidden rounded-[1.4rem] border border-slate-200 bg-slate-200 shadow-sm">
-            <img src={image} alt={name} className="h-full w-full object-cover" />
-          </div>
+          <div className="h-24 w-24 flex items-center justify-center overflow-hidden rounded-[1.4rem] border border-slate-200 bg-slate-100 shadow-sm">
+          <img
+          src={image}
+          alt={name}
+          className="max-h-full max-w-full object-contain"
+         />
+      </div>
         </div>
 
         <div className="min-w-0 flex-1">
@@ -1197,23 +1202,24 @@ setStaffInfo({
                     Datos generales
                   </h2>
 
-                  <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-slate-200 bg-slate-50">
-                    <button
-                      type="button"
-                      onClick={() => setIsCoursePhotoOpen(true)}
-                      className="group relative block w-full overflow-hidden"
-                    >
-                      <img
-                        src={staffImages.coursePhoto || coursePhoto}
-                        alt={`Fotografía del curso ${courseName}`}
-                        className="h-64 w-full object-cover transition duration-500 group-hover:scale-[1.03] md:h-72"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
-                      <div className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-                        <Expand size={16} />
-                        Ver fotografía ampliada
-                      </div>
-                    </button>
+                 <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-slate-200 bg-slate-50">
+                 <button
+                  type="button"
+                  onClick={() => setIsCoursePhotoOpen(true)}
+                  className="group relative flex w-full items-center justify-center overflow-hidden bg-slate-100"
+                  >
+                 <img
+                src={staffImages.coursePhoto || coursePhoto}
+                alt={`Fotografía del curso ${courseName}`}
+                className="block w-full max-h-[420px] object-contain bg-slate-100 transition duration-500 group-hover:scale-[1.01]"
+               />
+    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
+
+    <div className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+      <Expand size={16} />
+      Ver fotografía ampliada
+    </div>
+  </button>
 {canManageCourse && (
   <div className="mt-4">
     <p className="text-sm font-bold text-slate-700 mb-2">
@@ -1227,10 +1233,14 @@ setStaffInfo({
       previewClassName="w-full h-56"
       onChange={async (url) => {
         try {
-          await updateDoc(doc(db, 'courses', COURSE_ID), {
-            coursePhoto: url,
-          });
-
+          await setDoc(
+          doc(db, 'courses', COURSE_ID),
+          {
+          coursePhoto: url,
+          },
+         { merge: true }
+         );
+        
           setStaffImages((prev) => ({
             ...prev,
             coursePhoto: url,
@@ -1356,21 +1366,26 @@ setStaffInfo({
   className="w-full mb-2 rounded-xl border px-3 py-2"
 />
       <button
-        type="button"
-        onClick={async () => {
-          try {
-            await updateDoc(doc(db, 'courses', COURSE_ID), {
-              ...staffInfo,
-            });
-            alert('Datos guardados correctamente');
-          } catch (error) {
-            console.error(error);
-          }
-        }}
-        className="mt-3 bg-slate-900 text-white px-4 py-2 rounded-xl"
-      >
-        Guardar cambios
-      </button>
+  type="button"
+  onClick={async () => {
+    try {
+      await setDoc(
+        doc(db, 'courses', COURSE_ID),
+        {
+          ...staffInfo,
+        },
+        { merge: true }
+      );
+
+      alert('Datos guardados correctamente');
+    } catch (error) {
+      console.error(error);
+    }
+  }}
+  className="mt-3 bg-slate-900 text-white px-4 py-2 rounded-xl"
+>
+  Guardar cambios
+</button>
     </div>
   </div>
 )}

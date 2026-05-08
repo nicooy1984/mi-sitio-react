@@ -627,7 +627,7 @@ const MONTHLY_THEMES = {
 // EFEMÉRIDES ESPECIALES
 // ----------------------
 const SPECIAL_EFEMERIDES = {
-  '01-01': createEfemeride({
+    '01-01': createEfemeride({
     title: 'Año Nuevo',
     description:
       'Comenzamos un nuevo año con esperanza, gratitud y el compromiso de seguir creciendo como comunidad.',
@@ -647,6 +647,15 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Inclusión'
   }),
+  '01-06': createEfemeride({
+    title: 'Día de Reyes',
+    description:
+      'Una tradición que invita a valorar la infancia, la familia y los gestos de esperanza compartida.',
+    type: 'cultural',
+    icon: 'gift',
+    color: 'amber',
+    badge: 'Tradición'
+  }),
   '01-24': createEfemeride({
     title: 'Día Internacional de la Educación',
     description:
@@ -657,7 +666,48 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Educación'
   }),
+  '01-26': createEfemeride({
+    title: 'Día Mundial de la Educación Ambiental',
+    description:
+      'Promovemos una formación que enseñe a cuidar la naturaleza y actuar con responsabilidad frente al entorno.',
+    type: 'medioambiente',
+    icon: 'leaf',
+    color: 'green',
+    official: true,
+    badge: 'Conciencia ambiental'
+  }),
+  '01-27': createEfemeride({
+    title: 'Día Internacional en Memoria de las Víctimas del Holocausto',
+    description:
+      'Recordar la historia permite educar para la paz, la dignidad humana y el rechazo a toda forma de odio.',
+    type: 'derechos',
+    icon: 'scroll-text',
+    color: 'indigo',
+    official: true,
+    badge: 'Memoria'
+  }),
 
+  // FEBRERO
+  '02-02': createEfemeride({
+    title: 'Día Mundial de los Humedales',
+    description:
+      'Los humedales son ecosistemas esenciales para la biodiversidad, el agua y la vida de las comunidades.',
+    type: 'medioambiente',
+    icon: 'waves',
+    color: 'sky',
+    official: true,
+    badge: 'Medioambiente'
+  }),
+  '02-04': createEfemeride({
+    title: 'Día Mundial contra el Cáncer',
+    description:
+      'La prevención, el acompañamiento y la información son fundamentales para cuidar la salud y la vida.',
+    type: 'salud',
+    icon: 'heart-pulse',
+    color: 'rose',
+    official: true,
+    badge: 'Salud'
+  }),
   '02-11': createEfemeride({
     title: 'Día Internacional de la Mujer y la Niña en la Ciencia',
     description:
@@ -699,6 +749,7 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Lenguaje'
   }),
 
+  // MARZO
   '03-01': createEfemeride({
     title: 'Inicio del Año Escolar',
     description:
@@ -730,23 +781,44 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Conmemoración'
   }),
   '03-14': createEfemeride({
-    title: 'Día contra el Ciberacoso y la Violencia Digital',
+    title: 'Día Internacional de las Matemáticas',
     description:
-      'Recordamos la importancia de usar la tecnología con respeto, responsabilidad y empatía.',
-    type: 'convivencia',
-    icon: 'shield-alert',
-    color: 'violet',
-    badge: 'Ciudadanía digital'
+      'Celebramos el pensamiento lógico, la creatividad y la importancia de las matemáticas en la vida cotidiana.',
+    type: 'ciencia',
+    icon: 'calculator',
+    color: 'cyan',
+    official: true,
+    badge: 'Matemáticas'
   }),
-  '03-21': createEfemeride({
-    title: 'Día Internacional de la Eliminación de la Discriminación Racial',
+  '03-15': createEfemeride({
+    title: 'Día Mundial de los Derechos del Consumidor',
     description:
-      'Promovemos una convivencia basada en la dignidad, el respeto y la igualdad entre todas las personas.',
-    type: 'derechos',
-    icon: 'equal',
+      'La educación también forma ciudadanos informados, responsables y conscientes de sus derechos.',
+    type: 'civica',
+    icon: 'scale',
     color: 'indigo',
     official: true,
-    badge: 'Igualdad'
+    badge: 'Ciudadanía'
+  }),
+  '03-20': createEfemeride({
+    title: 'Día Internacional de la Felicidad',
+    description:
+      'El bienestar, la empatía y los vínculos positivos también son parte de una comunidad educativa sana.',
+    type: 'valores',
+    icon: 'smile',
+    color: 'emerald',
+    official: true,
+    badge: 'Bienestar'
+  }),
+  '03-21': createEfemeride({
+    title: 'Día Internacional del Síndrome de Down',
+    description:
+      'Promovemos la inclusión, el respeto y la valoración de cada persona en su dignidad y singularidad.',
+    type: 'derechos',
+    icon: 'accessibility',
+    color: 'indigo',
+    official: true,
+    badge: 'Inclusión'
   }),
   '03-22': createEfemeride({
     title: 'Día Mundial del Agua',
@@ -758,6 +830,16 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Agua'
   }),
+  '03-23': createEfemeride({
+    title: 'Día Meteorológico Mundial',
+    description:
+      'La observación del clima nos ayuda a comprender mejor la naturaleza y los desafíos ambientales.',
+    type: 'ciencia',
+    icon: 'cloud-sun',
+    color: 'cyan',
+    official: true,
+    badge: 'Clima'
+  }),
   '03-24': createEfemeride({
     title: 'Día Mundial de la Tuberculosis',
     description:
@@ -768,17 +850,18 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Salud'
   }),
-  '03-26': createEfemeride({
-    title: 'Día Mundial del Clima',
+  '03-27': createEfemeride({
+    title: 'Día Mundial del Teatro',
     description:
-      'Reflexionamos sobre el impacto de nuestras acciones en el medioambiente y en la vida de las futuras generaciones.',
-    type: 'medioambiente',
-    icon: 'cloud-sun',
-    color: 'green',
+      'El teatro fortalece la expresión, la creatividad, la memoria y el encuentro con otros.',
+    type: 'cultural',
+    icon: 'theater',
+    color: 'pink',
     official: true,
-    badge: 'Clima'
+    badge: 'Arte'
   }),
 
+  // ABRIL
   '04-02': createEfemeride({
     title: 'Día Mundial de Concienciación sobre el Autismo',
     description:
@@ -809,6 +892,26 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Salud'
   }),
+  '04-15': createEfemeride({
+    title: 'Día Mundial del Arte',
+    description:
+      'El arte abre espacios para imaginar, expresar emociones y comprender el mundo desde nuevas miradas.',
+    type: 'cultural',
+    icon: 'palette',
+    color: 'pink',
+    official: true,
+    badge: 'Arte'
+  }),
+  '04-21': createEfemeride({
+    title: 'Día Mundial de la Creatividad y la Innovación',
+    description:
+      'La creatividad permite encontrar soluciones, imaginar futuros y aprender de manera activa.',
+    type: 'ciencia',
+    icon: 'lightbulb',
+    color: 'cyan',
+    official: true,
+    badge: 'Innovación'
+  }),
   '04-22': createEfemeride({
     title: 'Día de la Tierra',
     description:
@@ -830,25 +933,25 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Lectura'
   }),
   '04-26': createEfemeride({
-    title: 'Día de Carabineros de Chile',
-    description:
-      'Reconocemos la labor institucional de Carabineros de Chile en el resguardo del orden público y la seguridad.',
-    type: 'civica',
-    icon: 'shield',
-    color: 'indigo',
-    official: true,
-    badge: 'Instituciones'
-  }),
-  '04-27': createEfemeride({
-    title: 'Día de la Convivencia Escolar',
-    description:
-      'Promovemos el buen trato, la empatía y el respeto como bases de toda comunidad educativa.',
-    type: 'convivencia',
-    icon: 'users',
-    color: 'violet',
-    official: true,
-    badge: 'Convivencia'
-  }),
+  title: 'Día de la Convivencia Escolar',
+  description:
+    'Promovemos el buen trato, la empatía y el respeto como bases de toda comunidad educativa.',
+  type: 'convivencia',
+  icon: 'users',
+  color: 'violet',
+  official: true,
+  badge: 'Convivencia'
+}),
+'04-27': createEfemeride({
+  title: 'Día del Carabinero',
+  description:
+    'Reconocemos la labor de Carabineros de Chile y su rol en el resguardo de la seguridad y el servicio a la comunidad.',
+  type: 'civica',
+  icon: 'shield',
+  color: 'indigo',
+  official: true,
+  badge: 'Instituciones'
+}),
   '04-29': createEfemeride({
     title: 'Día Internacional de la Danza',
     description:
@@ -860,6 +963,7 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Arte'
   }),
 
+  // MAYO
   '05-01': createEfemeride({
     title: 'Día Internacional del Trabajo',
     description:
@@ -879,6 +983,16 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Democracia'
+  }),
+  '05-08': createEfemeride({
+    title: 'Día Mundial de la Cruz Roja',
+    description:
+      'Reconocemos el valor de la ayuda humanitaria, el servicio y la solidaridad con quienes más lo necesitan.',
+    type: 'valores',
+    icon: 'heart-handshake',
+    color: 'emerald',
+    official: true,
+    badge: 'Solidaridad'
   }),
   '05-11': createEfemeride({
     title: 'Día del Estudiante',
@@ -901,14 +1015,14 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Familia'
   }),
   '05-17': createEfemeride({
-    title: 'Día Internacional contra la Homofobia, la Transfobia y la Bifobia',
+    title: 'Día Mundial de Internet',
     description:
-      'Promovemos el respeto irrestricto por la dignidad de cada persona y la convivencia sin discriminación.',
-    type: 'derechos',
-    icon: 'equal',
-    color: 'indigo',
+      'La tecnología debe usarse con responsabilidad, respeto y sentido educativo.',
+    type: 'educacion',
+    icon: 'monitor-smartphone',
+    color: 'blue',
     official: true,
-    badge: 'Respeto'
+    badge: 'Ciudadanía digital'
   }),
   '05-21': createEfemeride({
     title: 'Día de las Glorias Navales',
@@ -950,6 +1064,27 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Prevención'
   }),
 
+  // JUNIO
+  '06-01': createEfemeride({
+  title: 'Aniversario del Colegio Italiano San Pedro',
+  description:
+    'Celebramos la historia, identidad y trayectoria de nuestra comunidad educativa, renovando el compromiso con la formación de nuestros estudiantes.',
+  type: 'patrimonio',
+  icon: 'school',
+  color: 'amber',
+  official: true,
+  badge: 'Aniversario institucional'
+}),
+  '06-03': createEfemeride({
+    title: 'Día Mundial de la Bicicleta',
+    description:
+      'Promovemos la movilidad sostenible, la vida saludable y el cuidado del entorno.',
+    type: 'medioambiente',
+    icon: 'bike',
+    color: 'green',
+    official: true,
+    badge: 'Vida saludable'
+  }),
   '06-05': createEfemeride({
     title: 'Día Mundial del Medio Ambiente',
     description:
@@ -980,6 +1115,16 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Infancia protegida'
   }),
+  '06-17': createEfemeride({
+    title: 'Día Mundial contra la Desertificación y la Sequía',
+    description:
+      'La sequía nos recuerda la urgencia de cuidar el agua, el suelo y los ecosistemas.',
+    type: 'medioambiente',
+    icon: 'sun',
+    color: 'amber',
+    official: true,
+    badge: 'Medioambiente'
+  }),
   '06-19': createEfemeride({
     title: 'Día de la Policía de Investigaciones de Chile',
     description:
@@ -989,6 +1134,16 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Instituciones'
+  }),
+  '06-20': createEfemeride({
+    title: 'Día Mundial de los Refugiados',
+    description:
+      'Reflexionamos sobre la dignidad de quienes han debido dejar su hogar y buscan protección.',
+    type: 'derechos',
+    icon: 'hand-heart',
+    color: 'indigo',
+    official: true,
+    badge: 'Derechos humanos'
   }),
   '06-21': createEfemeride({
     title: 'Día Nacional de los Pueblos Indígenas',
@@ -1029,6 +1184,7 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Servicio'
   }),
 
+  // JULIO
   '07-01': createEfemeride({
     title: 'Inicio del segundo semestre escolar',
     description:
@@ -1048,6 +1204,16 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Símbolos patrios'
   }),
+  '07-11': createEfemeride({
+    title: 'Día Mundial de la Población',
+    description:
+      'Reflexionamos sobre el desarrollo humano, los derechos y la calidad de vida de las comunidades.',
+    type: 'civica',
+    icon: 'users-round',
+    color: 'indigo',
+    official: true,
+    badge: 'Sociedad'
+  }),
   '07-12': createEfemeride({
     title: 'Natalicio de Pablo Neruda',
     description:
@@ -1057,17 +1223,38 @@ const SPECIAL_EFEMERIDES = {
     color: 'pink',
     badge: 'Literatura chilena'
   }),
-  '07-30': createEfemeride({
-    title: 'Día Mundial contra la Trata de Personas',
+  '07-16': createEfemeride({
+    title: 'Día de la Virgen del Carmen',
     description:
-      'Reflexionamos sobre la dignidad humana y la necesidad de proteger a las personas frente a toda forma de abuso.',
+      'Fecha vinculada a una de las tradiciones religiosas más significativas del calendario chileno.',
+    type: 'cultural',
+    icon: 'landmark',
+    color: 'amber',
+    official: true,
+    badge: 'Tradición'
+  }),
+  '07-18': createEfemeride({
+    title: 'Día Internacional de Nelson Mandela',
+    description:
+      'Recordamos su legado de justicia, reconciliación, dignidad y servicio a la humanidad.',
     type: 'derechos',
-    icon: 'shield-alert',
+    icon: 'handshake',
     color: 'indigo',
     official: true,
-    badge: 'Dignidad humana'
+    badge: 'Derechos humanos'
+  }),
+  '07-30': createEfemeride({
+    title: 'Día Internacional de la Amistad',
+    description:
+      'La amistad fortalece la convivencia, la empatía y los vínculos que nos ayudan a crecer.',
+    type: 'convivencia',
+    icon: 'users-round',
+    color: 'violet',
+    official: true,
+    badge: 'Amistad'
   }),
 
+  // AGOSTO
   '08-01': createEfemeride({
     title: 'Mes de la Solidaridad',
     description:
@@ -1136,7 +1323,18 @@ const SPECIAL_EFEMERIDES = {
     color: 'green',
     badge: 'Naturaleza'
   }),
+  '08-30': createEfemeride({
+    title: 'Día Internacional de las Víctimas de Desapariciones Forzadas',
+    description:
+      'La memoria y la justicia son esenciales para proteger la dignidad humana.',
+    type: 'derechos',
+    icon: 'scale',
+    color: 'indigo',
+    official: true,
+    badge: 'Memoria'
+  }),
 
+  // SEPTIEMBRE
   '09-04': createEfemeride({
     title: 'Día Nacional del Vino Chileno',
     description:
@@ -1146,6 +1344,16 @@ const SPECIAL_EFEMERIDES = {
     color: 'amber',
     official: true,
     badge: 'Patrimonio'
+  }),
+  '09-05': createEfemeride({
+    title: 'Día Internacional de la Beneficencia',
+    description:
+      'La solidaridad se expresa en gestos concretos de ayuda, compromiso y servicio a los demás.',
+    type: 'valores',
+    icon: 'hand-heart',
+    color: 'emerald',
+    official: true,
+    badge: 'Solidaridad'
   }),
   '09-08': createEfemeride({
     title: 'Día Internacional de la Alfabetización',
@@ -1165,6 +1373,26 @@ const SPECIAL_EFEMERIDES = {
     icon: 'scroll-text',
     color: 'indigo',
     badge: 'Memoria'
+  }),
+  '09-15': createEfemeride({
+    title: 'Día Internacional de la Democracia',
+    description:
+      'La democracia se fortalece con participación, diálogo, respeto y responsabilidad ciudadana.',
+    type: 'civica',
+    icon: 'vote',
+    color: 'indigo',
+    official: true,
+    badge: 'Democracia'
+  }),
+  '09-16': createEfemeride({
+    title: 'Día Internacional de la Preservación de la Capa de Ozono',
+    description:
+      'Cuidar la atmósfera también es proteger la salud, la vida y el futuro del planeta.',
+    type: 'medioambiente',
+    icon: 'cloud-sun',
+    color: 'green',
+    official: true,
+    badge: 'Medioambiente'
   }),
   '09-18': createEfemeride({
     title: 'Fiestas Patrias',
@@ -1196,15 +1424,15 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Paz'
   }),
-  '09-26': createEfemeride({
-    title: 'Día Marítimo Mundial',
+  '09-23': createEfemeride({
+    title: 'Día Internacional de las Lenguas de Señas',
     description:
-      'Como país oceánico, Chile mantiene una profunda relación con el mar y sus desafíos.',
-    type: 'patriotica',
-    icon: 'ship',
-    color: 'red',
+      'Promovemos la comunicación inclusiva y el reconocimiento de las lenguas de señas.',
+    type: 'derechos',
+    icon: 'accessibility',
+    color: 'indigo',
     official: true,
-    badge: 'Mar'
+    badge: 'Inclusión'
   }),
   '09-27': createEfemeride({
     title: 'Día Mundial del Turismo',
@@ -1217,6 +1445,7 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Patrimonio'
   }),
 
+  // OCTUBRE
   '10-01': createEfemeride({
     title: 'Día Internacional de las Personas Mayores',
     description:
@@ -1226,6 +1455,25 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Respeto'
+  }),
+  '10-02': createEfemeride({
+    title: 'Día Internacional de la No Violencia',
+    description:
+      'La paz se construye mediante el diálogo, el respeto y la resolución pacífica de los conflictos.',
+    type: 'convivencia',
+    icon: 'handshake',
+    color: 'violet',
+    official: true,
+    badge: 'No violencia'
+  }),
+  '10-04': createEfemeride({
+    title: 'Día Mundial de los Animales',
+    description:
+      'El cuidado de los animales enseña responsabilidad, empatía y respeto por la vida.',
+    type: 'medioambiente',
+    icon: 'paw-print',
+    color: 'green',
+    badge: 'Cuidado animal'
   }),
   '10-05': createEfemeride({
     title: 'Día Mundial de los Docentes',
@@ -1297,14 +1545,25 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Reconocimiento'
   }),
-  '10-24': createEfemeride({
-    title: 'Día de las Bibliotecas',
+  '10-17': createEfemeride({
+    title: 'Día Internacional para la Erradicación de la Pobreza',
     description:
-      'Las bibliotecas son espacios de encuentro con la lectura, el estudio y la memoria.',
-    type: 'cultural',
-    icon: 'library',
-    color: 'amber',
-    badge: 'Lectura'
+      'La justicia social exige reconocer la dignidad de cada persona y trabajar por mayores oportunidades.',
+    type: 'derechos',
+    icon: 'scale',
+    color: 'indigo',
+    official: true,
+    badge: 'Justicia social'
+  }),
+  '10-24': createEfemeride({
+    title: 'Día de las Naciones Unidas',
+    description:
+      'Valoramos la cooperación internacional, la paz y el trabajo común entre los pueblos.',
+    type: 'civica',
+    icon: 'globe-2',
+    color: 'indigo',
+    official: true,
+    badge: 'Cooperación'
   }),
   '10-27': createEfemeride({
     title: 'Día de las Manipuladoras y Manipuladores de Alimentos',
@@ -1315,7 +1574,28 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     badge: 'Comunidad escolar'
   }),
+  '10-31': createEfemeride({
+    title: 'Día Nacional de las Iglesias Evangélicas y Protestantes',
+    description:
+      'Reconocemos una fecha que expresa la diversidad religiosa presente en la sociedad chilena.',
+    type: 'cultural',
+    icon: 'landmark',
+    color: 'amber',
+    official: true,
+    badge: 'Diversidad'
+  }),
 
+  // NOVIEMBRE
+  '11-01': createEfemeride({
+    title: 'Día de Todos los Santos',
+    description:
+      'Una fecha de recogimiento, memoria familiar y respeto por las tradiciones.',
+    type: 'cultural',
+    icon: 'flower',
+    color: 'amber',
+    official: true,
+    badge: 'Tradición'
+  }),
   '11-05': createEfemeride({
     title: 'Día Mundial de Concienciación sobre los Tsunamis',
     description:
@@ -1336,6 +1616,16 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Buen trato'
   }),
+  '11-08': createEfemeride({
+    title: 'Día de la Educación Parvularia',
+    description:
+      'Reconocemos la importancia de la primera infancia y el trabajo de quienes educan en esta etapa fundamental.',
+    type: 'educacion',
+    icon: 'baby',
+    color: 'blue',
+    official: true,
+    badge: 'Primera infancia'
+  }),
   '11-10': createEfemeride({
     title: 'Día Mundial de la Ciencia para la Paz y el Desarrollo',
     description:
@@ -1346,14 +1636,14 @@ const SPECIAL_EFEMERIDES = {
     official: true,
     badge: 'Ciencia'
   }),
-  '11-12': createEfemeride({
-    title: 'Día del Diálogo y el Debate',
+  '11-13': createEfemeride({
+    title: 'Día Mundial de la Bondad',
     description:
-      'Escuchar, argumentar y dialogar con respeto fortalece la vida democrática.',
-    type: 'convivencia',
-    icon: 'messages-square',
-    color: 'violet',
-    badge: 'Diálogo'
+      'La bondad cotidiana mejora la convivencia y fortalece los vínculos dentro de la comunidad.',
+    type: 'valores',
+    icon: 'heart',
+    color: 'emerald',
+    badge: 'Buen trato'
   }),
   '11-16': createEfemeride({
     title: 'Día Internacional de la Tolerancia',
@@ -1366,13 +1656,14 @@ const SPECIAL_EFEMERIDES = {
     badge: 'Respeto'
   }),
   '11-19': createEfemeride({
-    title: 'Día de los Patrimonios de Niñas, Niños y Adolescentes',
+    title: 'Día Mundial para la Prevención del Abuso Infantil',
     description:
-      'La infancia y la adolescencia también forman parte viva del patrimonio cultural del país.',
-    type: 'patrimonio',
-    icon: 'landmark',
-    color: 'amber',
-    badge: 'Patrimonio'
+      'Toda comunidad educativa debe comprometerse con la protección, escucha y cuidado de la infancia.',
+    type: 'derechos',
+    icon: 'shield-check',
+    color: 'indigo',
+    official: true,
+    badge: 'Protección'
   }),
   '11-20': createEfemeride({
     title: 'Día Universal de los Derechos del Niño y la Niña',
@@ -1383,6 +1674,16 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Derechos de la niñez'
+  }),
+  '11-21': createEfemeride({
+    title: 'Día Mundial de la Televisión',
+    description:
+      'Reflexionamos sobre el rol de los medios audiovisuales en la cultura, la información y la educación.',
+    type: 'cultural',
+    icon: 'tv',
+    color: 'amber',
+    official: true,
+    badge: 'Comunicación'
   }),
   '11-25': createEfemeride({
     title: 'Día Internacional de la Eliminación de la Violencia contra la Mujer',
@@ -1395,6 +1696,17 @@ const SPECIAL_EFEMERIDES = {
     badge: 'No violencia'
   }),
 
+  // DICIEMBRE
+  '12-01': createEfemeride({
+    title: 'Día Mundial de la Lucha contra el Sida',
+    description:
+      'La información, la prevención y el respeto son fundamentales para cuidar la salud y evitar la discriminación.',
+    type: 'salud',
+    icon: 'heart-pulse',
+    color: 'rose',
+    official: true,
+    badge: 'Salud'
+  }),
   '12-03': createEfemeride({
     title: 'Día Internacional de las Personas con Discapacidad',
     description:
@@ -1404,6 +1716,26 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Inclusión'
+  }),
+  '12-05': createEfemeride({
+    title: 'Día Internacional de los Voluntarios',
+    description:
+      'Reconocemos a quienes entregan tiempo y servicio para construir comunidades más solidarias.',
+    type: 'valores',
+    icon: 'hand-heart',
+    color: 'emerald',
+    official: true,
+    badge: 'Voluntariado'
+  }),
+  '12-09': createEfemeride({
+    title: 'Día Internacional contra la Corrupción',
+    description:
+      'La probidad, la honestidad y la responsabilidad pública son valores esenciales para la vida democrática.',
+    type: 'civica',
+    icon: 'scale',
+    color: 'indigo',
+    official: true,
+    badge: 'Probidad'
   }),
   '12-10': createEfemeride({
     title: 'Día de los Derechos Humanos',
@@ -1424,6 +1756,16 @@ const SPECIAL_EFEMERIDES = {
     color: 'indigo',
     official: true,
     badge: 'Diversidad'
+  }),
+  '12-20': createEfemeride({
+    title: 'Día Internacional de la Solidaridad Humana',
+    description:
+      'La solidaridad nos recuerda que vivir en comunidad implica acompañar, cuidar y colaborar.',
+    type: 'valores',
+    icon: 'heart-handshake',
+    color: 'emerald',
+    official: true,
+    badge: 'Solidaridad'
   }),
   '12-24': createEfemeride({
     title: 'Víspera de Navidad',
